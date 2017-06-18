@@ -1,9 +1,13 @@
 {% extends "layout.html" %}
 {% block content %}
-
+<div class="container">
+    <p>{{ page }}</p>
     {% for data in planets_data %}
         <p>{{ data }}</p>
     {% endfor %}
+    <p><a href ="{{ url_for('index',page=2) }}">{{ page + 1 }}</a></p>
+<div>
 
+<!-- gomb: redirect vagy url_for -> page-t növelni +1 el -->
 
 {% endblock %}
