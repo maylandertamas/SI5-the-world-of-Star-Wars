@@ -1,5 +1,4 @@
 import requests
-from collections import Counter
 
 
 def whole_float_to_int(float_number):
