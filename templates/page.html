@@ -51,7 +51,10 @@
           <td>{{ dict_item['terrain'] }}</td>
           <td>{{ dict_item['surface_water'] }}</td>
           <td>{{ dict_item['population'] }}</td>
-          <td>{{ dict_item['residents'] }}</td> 
+          <td>{% if dict_item['residents'] == '0' %} No known residents
+              {% else %} <button type="button" class="btn btn-default">{{ dict_item['residents'] }} residents</button>
+              {% endif %}
+          </td> 
         </tr>
         {% endfor %}
       </tbody>
