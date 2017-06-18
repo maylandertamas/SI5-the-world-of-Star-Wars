@@ -1,41 +1,20 @@
-function get_api() {
-    var shit = "";
-    $.getJSON('http://swapi.co/api/planets/?page=3', function(response){
-       console.log(response['results']) });
-}
-
-
-/*
-$(document).ready(function() {
-    $('#example').DataTable( {
-        "ajax": "data/arrays.txt"
-    } );
-} );
-*/
-
-
-/*
+/* function getResidentsDataFromApi () {
 $.getJSON('https://api.github.com/repos/atom/atom', function(response){
     console.log(response['stargazers_count'])
 });
-
-$.ajax({
-    dataType: "json",
-    url: 'https://api.github.com/repos/atom/atom',
-    success: function(response) {
-        console.log(response['stargazers_count'])
-    }
-});
-
-var request = new XMLHttpRequest();
-request.open('GET', 'https://api.github.com/repos/atom/atom', true);
-
-request.onload = function() {
-  if (request.status >= 200 && request.status < 400) { // successful response
-    var data = JSON.parse(request.responseText);
-    console.log(data['stargazers_count'])
-  }
-};
-
-request.send();
+}
 */
+function main() {
+$('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // Button that triggered the modal
+  var recipient = button.data('whatever') // Extract info from data-* attributes
+  // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+  // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+  var modal = $(this)
+  // modal.find('.modal-title').text('New message to ' + recipient)
+  // modal.find('.modal-body input').val(recipient)
+});
+    
+}
+
+$(document).ready(main);
