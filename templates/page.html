@@ -1,37 +1,39 @@
 {% extends "layout.html" %}
 {% block content %}
 <div class="container">
-    <p>{{ page }}</p>
-    <p><a href =>{{ page + 1 }}</a></p>
-<div class="table-responsive">          
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Diameter (Km)</th>
-        <th>Climate</th>
-        <th>Terrain</th>
-        <th>Surface water percentage</th>
-        <th>Population</th>
-      </tr>
-    </thead>
-    <tbody>
+  {% if page != 1 %}
+  <a href="{{ url_for('index',page = page - 1 ) }}" class="btn btn-info" role="button">Previous</a>
+  {% endif %}
+  {% if not planets_data_length < 10 %}
+  <a href="{{ url_for('index',page = page + 1 ) }}" class="btn btn-info" role="button">Next page</a>
+  {% endif %}
+  <div class="table-responsive">          
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Diameter (Km)</th>
+          <th>Climate</th>
+          <th>Terrain</th>
+          <th>Surface water percentage</th>
+          <th>Population (Million)</th>
+        </tr>
+      </thead>
+      <tbody>
         {% for dict_item in planets_data %}
-      <tr>
-        <td>{{ dict_item['name'] }}</td>
-        <td>{{ dict_item['diameter'] }}</td>
-        <td>{{ dict_item['climate'] }}</td>
-        <td>{{ dict_item['terrain'] }}</td>
-        <td>{{ dict_item['surface_water'] }}</td>
-        <td>{{ dict_item['population'] }}</td>  
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+        <tr>
+          <td>{{ dict_item['name'] }}</td>
+          <td>{{ dict_item['diameter'] }}</td>
+          <td>{{ dict_item['climate'] }}</td>
+          <td>{{ dict_item['terrain'] }}</td>
+          <td>{{ dict_item['surface_water'] }}</td>
+          <td>{{ dict_item['population'] }}</td>  
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
- <a href="{{ url_for('index',page=2) }}" class="btn btn-info" role="button">Link Button</a>
 </div>
-<div>
 
 <!-- gomb: redirect vagy url_for -> page-t növelni +1 el -->
 
