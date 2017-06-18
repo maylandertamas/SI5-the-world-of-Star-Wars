@@ -2,10 +2,35 @@
 {% block content %}
 <div class="container">
     <p>{{ page }}</p>
-    {% for data in planets_data %}
-        <p>{{ data }}</p>
-    {% endfor %}
-    <p><a href ="{{ url_for('index',page=2) }}">{{ page + 1 }}</a></p>
+    <p><a href =>{{ page + 1 }}</a></p>
+<div class="table-responsive">          
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Diameter (Km)</th>
+        <th>Climate</th>
+        <th>Terrain</th>
+        <th>Surface water percentage</th>
+        <th>Population</th>
+      </tr>
+    </thead>
+    <tbody>
+        {% for dict_item in planets_data %}
+      <tr>
+        <td>{{ dict_item['name'] }}</td>
+        <td>{{ dict_item['diameter'] }}</td>
+        <td>{{ dict_item['climate'] }}</td>
+        <td>{{ dict_item['terrain'] }}</td>
+        <td>{{ dict_item['surface_water'] }}</td>
+        <td>{{ dict_item['population'] }}</td>  
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  </div>
+ <a href="{{ url_for('index',page=2) }}" class="btn btn-info" role="button">Link Button</a>
+</div>
 <div>
 
 <!-- gomb: redirect vagy url_for -> page-t növelni +1 el -->
