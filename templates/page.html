@@ -29,7 +29,7 @@
           <td>{{ dict_item['terrain'] }}</td>
           <td>{{ dict_item['surface_water'] }}</td>
           <td>{{ dict_item['population'] }}</td>
-          <td>{% if dict_item['residents'] == '0' %} No known residents
+          <td id="{{ dict_item['id'] }}">{% if dict_item['residents'] == '0' %} No known residents
               {% else %} <button type="button" class="btn btn-default residents-button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" data-value="{{ dict_item['residents_url'] }}">{{ dict_item['residents'] }} residents</button>
               {% endif %}
           </td> 
@@ -41,7 +41,7 @@
 </div>
 
 <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-lg" role="document">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -49,7 +49,7 @@
       </div>
       <div class="modal-body">
         <div class="table-responsive">          
-    <table class="table">
+    <table class="table" id="#modal-table">
       <thead>
         <tr>
           <th>Name</th>
@@ -59,18 +59,10 @@
           <th>Hair color</th>
           <th>Eye color</th>
           <th>Birth year</th>
+          <th>Gender</th>
         </tr>
       </thead>
       <tbody>
-        <tr>
-          <td id='td-name'></td>
-          <td id='td-height'>asdad</td>
-          <td id='td-mass'>asdad</td>
-          <td id='td-skin'>adas</td>
-          <td id='td-hair'>asdad</td>
-          <td id='td-eye'>asdad</td>
-          <td id='td-birth'>adad</td> 
-        </tr>
       </tbody>
     </table>
   </div>
