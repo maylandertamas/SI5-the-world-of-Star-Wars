@@ -1,21 +1,10 @@
 
-function printToModals(planetResidents) {
-  
-}
-
-function main() {
-
-  $("#exampleModal").on("hidden.bs.modal", function(){
-      $(".modal-body tbody").empty("");
-  });
-
-  $('.residents-button').click(function() {
+function printToModals() {
+    $('.residents-button').click(function() {
     var planetResidents = [];
-    var buttonId = $(this).id;
     var planetResidents = $(this).data('value');
     $('#exampleModal').on('show.bs.modal', function (event) {
     for (let i = 0; i < planetResidents.length; i++) {
-      console.log(planetResidents[i]);
       var jsonFile = planetResidents[i];
       $.ajax({
           async: true,
@@ -23,14 +12,6 @@ function main() {
           url: jsonFile,
           cache: false,
           success: function(response) {
-              response['name']
-              response['height']
-              response['mass'] 
-              response['skin_color]
-              response['hair_col
-              response['eye_colo
-              response['birth_ye
-              response['gender']
           $('#exampleModal').find('.modal-body tbody')
           .append('<tr>')
           .append('<td>' + response['name'] + '</td>')
@@ -43,14 +24,33 @@ function main() {
           .append('<td>' + response['gender'] + '</td>')
           .append('</tr>');
           planetResidents.splice (jsonFile, 1);
-          localStorage.setItem('shit', jsonFile);
-          localStorage.getItem('shit');
         }
       });
     
     }
   });
   });
+}
+
+function loginModal() {
+   $('#login').click(function() {
+    $('#loginModal').on('show.bs.modal', function (event) {
+       // Extract info from data-* attributes
+      // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+      // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+      var modal = $(this)
+    });
+  });
+}
+
+function main() {
+
+  $("#exampleModal").on("hidden.bs.modal", function(){
+      $(".modal-body tbody").empty("");
+  });
+
+  printToModals();
+
 
 
 }
