@@ -78,8 +78,6 @@ function printToModals() {
   });
 }
 
-
-
 function loginModal() {
 
    $('#loginModal').on('show.bs.modal', function (event) {
@@ -125,6 +123,28 @@ function loginModal() {
   });
 }
 
+function writePlanetVoteToDatabase() {
+  $('.vote-button').on('click', function() {
+    var planetId = $(this).data('planetid');
+    var userName = $(this).data('username');
+    var msg = "lol"
+    $.ajax({
+      type : 'POST',
+      url : "/storevote",
+      contentType: 'application/json;charset=UTF-8',
+      data : JSON.stringify({'planetId':planetId, 'userName':userName}),
+      success: function(msg){
+        $('#popup').append('<div class="alert alert-success alert-dismissable fade in">\
+    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>\
+    <strong>Success!</strong> Your vote has been succesfully saved.\
+  </div>');
+      }
+     
+    });
+  });
+}
+
+
 function main() {
   $("#loginModal").on("hidden.bs.modal", function(){
     $(".modal-body").empty("");
@@ -139,7 +159,8 @@ function main() {
   printToModals();
 
   loginModal();
-
+  
+  writePlanetVoteToDatabase();
 
 }
 
