@@ -7,14 +7,12 @@ app = Flask(__name__)
 
 
 @app.route("/")
-@app.route("/<username>/<int:page>")
-def index(page=1):
-    username = request.args.get('username')
-    print(username)
+@app.route("/<int:page>")
+def index(username=None, page=1):
     print(session)
-    if username not in session:
+    """if username not in session:
         username = None
-    
+    """
     try:
         planets_data = get_api_data.planets_from_api(page)
     except KeyError:
@@ -33,7 +31,7 @@ def login():
     if request.method == 'POST':
         session['username'] = request.form['username']
         username = request.form['username']
-        return redirect(url_for('index', username=username, page=1))
+        return redirect(url_for('index'))
 
 
 @app.route('/logout')
