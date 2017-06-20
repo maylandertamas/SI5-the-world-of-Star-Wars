@@ -1,36 +1,84 @@
+function writeToModal(name, height, mass, skinColor, hairColor, eyeColor, birthYear, gender) {
+  $('#exampleModal').find('.modal-body tbody')
+    .append('<tr>')
+    .append('<td>' + name + '</td>')
+    .append('<td>' + height + '</td>')
+    .append('<td>' + mass + '</td>')
+    .append('<td>' + skinColor + '</td>')
+    .append('<td>' + hairColor + '</td>')
+    .append('<td>' + eyeColor + '</td>')
+    .append('<td>' + birthYear + '</td>')
+    .append('<td>' + gender + '</td>')
+    .append('</tr>');
+}
 
 function printToModals() {
-    $('.residents-button').click(function() {
-    var planetResidents = [];
-    var planetResidents = $(this).data('value');
+    var savedApiData = []
     $('#exampleModal').on('show.bs.modal', function (event) {
-    for (let i = 0; i < planetResidents.length; i++) {
-      var jsonFile = planetResidents[i];
-      $.ajax({
-          async: true,
-          dataType: "json",
-          url: jsonFile,
-          cache: false,
-          success: function(response) {
-          $('#exampleModal').find('.modal-body tbody')
-          .append('<tr>')
-          .append('<td>' + response['name'] + '</td>')
-          .append('<td>' + response['height'] + '</td>')
-          .append('<td>' + response['mass']+ '</td>')
-          .append('<td>' + response['skin_color'] + '</td>')
-          .append('<td>' + response['hair_color'] + '</td>')
-          .append('<td>' + response['eye_color'] + '</td>')
-          .append('<td>' + response['birth_year'] + '</td>')
-          .append('<td>' + response['gender'] + '</td>')
-          .append('</tr>');
-          planetResidents.splice (jsonFile, 1);
+    var button = $(event.relatedTarget);
+    var planetResidents = button.data('value');
+    var buttonId = button.data('buttonid');
+    var name;
+    var height;
+    var mass;
+    var skinColor;
+    var hairColor;
+    var eyeColor;
+    var birthYear;
+    var gender;
+   
+      if($(button).data('clicked')) {
+        savedApiData.forEach(function(arrayItem) {
+          var objButtonId = arrayItem.buttonId;
+          if (objButtonId === buttonId) {
+            name = arrayItem.name;
+            height = arrayItem.height;
+            mass = arrayItem.mass;
+            skinColor = arrayItem.skinColor;
+            hairColor = arrayItem.hairColor;
+            eyeColor = arrayItem.eyeColor;
+            birthYear = arrayItem.birthYear;
+            gender = arrayItem.gender;
+            writeToModal(name, height, mass, skinColor, hairColor, eyeColor, birthYear, gender);
+          }
+        });
+        
+      } else {
+        $(button).click(function() {
+          $(button).data('clicked', true);
+        });
+        for (let i = 0; i < planetResidents.length; i++) {
+          var jsonFile = planetResidents[i];
+          $.getJSON(jsonFile, function(response){
+            name = response['name'];
+            height = response['height'];
+            mass = response['mass'];
+            skinColor = response['skin_color'];
+            hairColor = response['hair_color'];
+            eyeColor = response['eye_color'];
+            birthYear = response['birth_year'];
+            gender = response['gender'];
+            planetResidents.splice (jsonFile, 1);
+            writeToModal(name, height, mass, skinColor, hairColor, eyeColor, birthYear, gender)
+            var resDataObj = {
+              'buttonId': buttonId,
+              'name': name,
+              'height': height,
+              'mass': mass,
+              'skinColor': skinColor,
+              'hairColor': hairColor,
+              'eyeColor': eyeColor,
+              'birthYear': birthYear,
+              'gender': gender
+            }
+            savedApiData.push(resDataObj);
+          });
         }
-      });
-    
-    }
-  });
-  });
+      }
+    });
 }
+
+
 
 function loginModal() {
    $('#login').click(function() {

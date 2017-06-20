@@ -30,7 +30,7 @@
           <td>{{ dict_item['surface_water'] }}</td>
           <td>{{ dict_item['population'] }}</td>
           <td id="{{ dict_item['id'] }}">{% if dict_item['residents'] == '0' %} No known residents
-              {% else %} <button type="button" class="btn btn-default residents-button" data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo" data-value="{{ dict_item['residents_url'] }}">{{ dict_item['residents'] }} residents</button>
+              {% else %} <button type="button" class="btn btn-default residents-button" data-toggle="modal" data-target="#exampleModal" data-buttonid="{{ dict_item['id'] }}" data-value="{{ dict_item['residents_url'] }}">{{ dict_item['residents'] }} residents</button>
               {% endif %}
           </td> 
         </tr>
