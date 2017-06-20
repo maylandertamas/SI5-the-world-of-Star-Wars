@@ -23,8 +23,9 @@ def database_handler(command, command_type="read"):
                 fetch_data = cur.fetchall()
                 return fetch_data
             elif command_type == "write":
-                cur.execute(command)
-            else:
-                pass
+                try:
+                    cur.execute(command)
+                except (psycopg2.IntegrityError, psycopg2.DataError):
+                    return "error"
 
     
