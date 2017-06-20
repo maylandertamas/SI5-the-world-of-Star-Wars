@@ -23,6 +23,7 @@
             </div>
             <ul class="nav navbar-nav">
                 <li class="active"><a href="{{url_for('index')}}">Home</a></li>
+                <li class="active"><button id="votestats" data-toggle="modal" data-target="#voteStatModal" class="btn btn-danger navbar-btn">Vote Stats</button></li>
             </ul>
             
                 {% if username %}
@@ -32,12 +33,13 @@
                 
                 {% else %}
                 <ul class="nav navbar-nav navbar-right">
-                <li><button id="registration" data-toggle="modal" data-target="#loginModal" data-whatever="@mdo" class="btn btn-default navbar-btn">Sign up</button></li>
-                <li><button id="login" data-toggle="modal" data-target="#loginModal" data-whatever="@mdo" class="btn btn-default navbar-btn">Login</button></li>
+                <li><button id="registration" data-toggle="modal" data-target="#loginModal" class="btn btn-default navbar-btn">Sign up</button></li>
+                <li><button id="login" data-toggle="modal" data-target="#loginModal" class="btn btn-default navbar-btn">Login</button></li>
                 {% endif %}
             </ul>
         </div>
     </nav>
+    <!-- modal for login and registration -->
     <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
@@ -52,6 +54,35 @@
     </div>
     <div id="popup" class="container">
         
+    </div>
+
+    <!-- div for planet vote statics -->
+   <div class="modal fade" id="voteStatModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="exampleModalLabel">Planet's residents</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="table-responsive">
+                        <table class="table" id="#modal-table">
+                            <thead>
+                                <tr>
+                                    <th>Planet name</th>
+                                    <th>Vote number</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    </div>
+            </div>
+        </div>
     </div>
     {% block content %}
     {% endblock %}

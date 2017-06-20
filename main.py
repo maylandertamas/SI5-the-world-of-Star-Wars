@@ -1,10 +1,27 @@
-from flask import Flask, render_template, session, redirect, url_for, request
+from flask import Flask, render_template, session, redirect, url_for, request, Response
 import get_api_data
 from database_handler import database_handler
 from werkzeug.security import generate_password_hash, check_password_hash
 from datetime import datetime
+import json
+import requests
 
 app = Flask(__name__)
+
+
+@app.route('/getvotedata', methods=['GET'])
+def report():
+    votes_by_planet_ids = database_handler("SELECT planet_id, COUNT(planet_id) from planet_votes_table\
+                                            GROUP BY planet_id;")
+    planet_with_votes = []
+    for ids in votes_by_planet_ids:
+        actual_planet = {}
+        response = requests.get("http://swapi.co/api/planets/" + str(ids[0])).json()
+        response = response['name']
+        actual_planet[response] = ids[1]
+        planet_with_votes.append(actual_planet)
+    votes_by_planet_ids_json = json.dumps(planet_with_votes)
+    return Response(votes_by_planet_ids_json)
 
 
 @app.route("/")

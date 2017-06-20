@@ -144,6 +144,21 @@ function writePlanetVoteToDatabase() {
   });
 }
 
+function getVoteStats() {
+  $.get("/getvotedata").done(function (data) {
+    var voteStats = data;
+     $('#voteStatModal').on('show.bs.modal', function (event) {
+       for (var k in voteStats) {
+          if (voteStats.hasOwnProperty(k)) {
+            $('#voteStatModal').find('.modal-body tbody')
+            .append('<tr>')
+            .append('<td>' + k + '</td>')
+            .append('</tr>');
+          }
+        }
+       });
+});
+}
 
 function main() {
   $("#loginModal").on("hidden.bs.modal", function(){
@@ -161,6 +176,8 @@ function main() {
   loginModal();
   
   writePlanetVoteToDatabase();
+
+  getVoteStats();
 
 }
 
