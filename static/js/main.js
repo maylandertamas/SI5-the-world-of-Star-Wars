@@ -92,7 +92,7 @@ function loginModal() {
                 </div>\
                 <div class="form-group">\
                     <label for="message-text" class="control-label">Password:</label>\
-                    <textarea class="form-control" id="password-text" name="password" required></textarea>\
+                    <input type="password" class="form-control" id="password-text" name="password" required></textarea>\
                 </div>\
                 <div class="modal-footer">\
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
@@ -110,7 +110,7 @@ function loginModal() {
                 </div>\
                 <div class="form-group">\
                     <label for="message-text" class="control-label">Password:</label>\
-                    <textarea class="form-control" id="password-text" name="password"required></textarea>\
+                    <input type="password" class="form-control" id="password-text" name="password" required></textarea>\
                 </div>\
                 <div class="modal-footer">\
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>\
@@ -154,19 +154,19 @@ function getVoteStats() {
         url: '/getvotedata',
         success: function(data) {
             voteStats = $.parseJSON(data);
-    }
+        }
       });
     });
-}
- $('#voteStatModal').on('show.bs.modal', function (event) {
-       for (let i = 0; i < voteStats.length; i++) {
-            $('#voteStatModal').find('.modal-body tbody')
-            .append('<tr>')
-            .append('<td>'+ voteStats[i][0] +'</td>')
-            .append('<td>'+ voteStats[i][1] +'</td>')
-            .append('</tr>');
-       }
-});
+  }
+  $('#voteStatModal').on('show.bs.modal', function (event) {
+      for (let i = 0; i < voteStats.length; i++) {
+        $('#voteStatModal').find('.modal-body tbody')
+        .append('<tr>')
+        .append('<td>'+ voteStats[i][0] +'</td>')
+        .append('<td>'+ voteStats[i][1] +'</td>')
+        .append('</tr>');
+      }
+  });
 }
 
 
