@@ -127,13 +127,12 @@ function writePlanetVoteToDatabase() {
   $('.vote-button').on('click', function() {
     var planetId = $(this).data('planetid');
     var userName = $(this).data('username');
-    var msg = "lol"
     $.ajax({
       type : 'POST',
       url : "/storevote",
       contentType: 'application/json;charset=UTF-8',
       data : JSON.stringify({'planetId':planetId, 'userName':userName}),
-      success: function(msg){
+      success: function(){
         $('#popup').append('<div class="alert alert-success alert-dismissable fade in">\
     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>\
     <strong>Success!</strong> Your vote has been succesfully saved.\
@@ -145,20 +144,31 @@ function writePlanetVoteToDatabase() {
 }
 
 function getVoteStats() {
-  $.get("/getvotedata").done(function (data) {
-    var voteStats = data;
-     $('#voteStatModal').on('show.bs.modal', function (event) {
-       for (var k in voteStats) {
-          if (voteStats.hasOwnProperty(k)) {
+  var voteStats;
+  if($('#votestats').data('clicked') !== true) {
+    $('#votestats').on('click', function() {
+      $('#votestats').data('clicked', true);
+      $.ajax({
+        async: false,
+        type: 'GET',
+        url: '/getvotedata',
+        success: function(data) {
+            voteStats = $.parseJSON(data);
+    }
+      });
+    });
+}
+ $('#voteStatModal').on('show.bs.modal', function (event) {
+       for (let i = 0; i < voteStats.length; i++) {
             $('#voteStatModal').find('.modal-body tbody')
             .append('<tr>')
-            .append('<td>' + k + '</td>')
+            .append('<td>'+ voteStats[i][0] +'</td>')
+            .append('<td>'+ voteStats[i][1] +'</td>')
             .append('</tr>');
-          }
-        }
-       });
+       }
 });
 }
+
 
 function main() {
   $("#loginModal").on("hidden.bs.modal", function(){
@@ -170,6 +180,11 @@ function main() {
   $("#exampleModal").on("hidden.bs.modal", function(){
       $(".modal-body tbody").empty("");
   });
+
+   $("#voteStatModal").on("hidden.bs.modal", function(){
+    $(".modal-body tbody").empty("");
+  });
+
 
   printToModals();
 

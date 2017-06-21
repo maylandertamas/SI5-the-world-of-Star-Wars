@@ -13,12 +13,14 @@ app = Flask(__name__)
 def report():
     votes_by_planet_ids = database_handler("SELECT planet_id, COUNT(planet_id) from planet_votes_table\
                                             GROUP BY planet_id;")
+    
     planet_with_votes = []
-    for ids in votes_by_planet_ids:
-        actual_planet = {}
-        response = requests.get("http://swapi.co/api/planets/" + str(ids[0])).json()
-        response = response['name']
-        actual_planet[response] = ids[1]
+    for elements in votes_by_planet_ids:
+        actual_planet = []
+        response = requests.get("http://swapi.co/api/planets/" + str(elements[0])).json()
+        planet_name = response['name']
+        actual_planet.append(planet_name)
+        actual_planet.append(elements[1])
         planet_with_votes.append(actual_planet)
     votes_by_planet_ids_json = json.dumps(planet_with_votes)
     return Response(votes_by_planet_ids_json)
