@@ -59,6 +59,8 @@ def planets_from_api(page_num):
             elif key == 'residents':
                 number_of_residents = str(len(value))
                 actual_planet_data.update({key: number_of_residents})
+                for element in value:
+                    element.replace('http://', 'https://')
                 json_valid_value = json.dumps(value)  # Convert (list) value to valid json format to make jquery able to read it out from DOM
                 actual_planet_data.update({'residents_url': json_valid_value})
         all_planet_data.append(actual_planet_data)
